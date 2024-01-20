@@ -1,26 +1,31 @@
 * {
 	font-family: "Libre Baskerville";
 	box-sizing: border-box;
-	text-align: center;
+	
 }
 
 body {
-	background-color: #C1C0A2;
+	background-color: #8F9879;
 	padding: 20px;
 }
 
 main {
-	border: solid; 
+	border: 2px solid #556B30;	
 	background-color: white;
 	border-radius: 20px;
 	width: 90%;
 	max-width: 600px;
-	margin: 100px auto 0;
-	padding: 0px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin: auto ;
+	height: 600px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .start-quiz {
-	text-align: center;
+	
 }
 
 .start-quiz h1 {
@@ -30,18 +35,21 @@ main {
 
 .start-quiz p {
 	word-wrap: break-word;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 20px;
 
 }
 
 .start-quiz-btn {
 
-	background-color: #556B30;
+	background-color: #3e4d23;
 		color: white;
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 		border: none;
 		border-radius: 5px;
 		padding: 15px;
-		text-align: left;
+		text-align: center;
 		text-decoration: none;
 		list-style: none;
 		display: inline-block;
@@ -49,7 +57,10 @@ main {
 		margin: 4px 2px;
 		cursor: pointer;
 		font-weight: 600;
+}
 
+.start-quiz-btn:hover {
+	background-color: #2b3518;
 }
 
 .btn {
@@ -71,55 +82,59 @@ main {
 	
 }
 
-
-
-.questions {
-	padding-top: 20px;
+.btn:hover:not([disabled]) {
+	background-color:#3e4d23;
 }
 
-.question-one {
-	padding: 20px;
-
+.btn:disabled{
+	cursor: no-drop;
 }
 
-.question-one p {
-	padding: 20px;
-
+#next-btn {
+	background-color: #3e4d23;
+		color: white;
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		border: none;
+		border-radius: 5px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 35px;
+		padding-right: 35px;
+		text-decoration: none;
+		list-style: none;
+		font-size: 16px;
+		margin: 20px;
+		cursor: pointer;
+		font-weight: 600;
+		float: right;
+		display: none;
 }
 
-.question-two {
-	padding: 20px;
-
+#next-btn:hover {
+	background-color: #2b3518;
 }
 
-.question-two p {
-	padding: 20px;
+
+
+.quiz {
+	font-size: 20px;
 }
 
-.question-three {
-	padding: 20px;
+#answer-buttons {
 
-}
-
-.question-three p {
-	padding: 20px;
-}
-
-.question-four {
-	padding: 20px;
-
-}
-
-.question-four p {
-	padding: 20px;
-}
-
-.question-five {
-	padding: 20px;
+	
 
 }
 
-.question-five p {
-	padding: 20px;
+
+#questions {
+	
 }
 
+.correct {
+	background-color: #4dbb7a;
+}
+
+.incorrect {
+	background-color: #f85959;
+}
