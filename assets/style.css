@@ -20,16 +20,15 @@ main {
 	padding-left: 30px;
 	padding-right: 30px;
 	margin: auto ;
-	height: 600px;
+	height: 650px;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	position: relative;
 }
 
-.start-quiz {
-	
-}
 
 .start-quiz h1 {
 	font-size: 40px;
+	text-align: center;
 	
 }
 
@@ -41,22 +40,25 @@ main {
 
 }
 
-.start-quiz-btn {
+#start-quiz-btn {
 
 	background-color: #3e4d23;
-		color: white;
-		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-		border: none;
-		border-radius: 5px;
-		padding: 15px;
-		text-align: center;
-		text-decoration: none;
-		list-style: none;
-		display: inline-block;
-		font-size: 16px;
-		margin: 4px 2px;
-		cursor: pointer;
-		font-weight: 600;
+	color: white;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: none;
+	border-radius: 5px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 35px;
+	padding-right: 35px;
+	text-decoration: none;
+	list-style: none;
+	font-size: 16px;
+	margin: 20px;
+	cursor: pointer;
+	font-weight: 600;
+	float: right;
+	display: none;
 }
 
 .start-quiz-btn:hover {
@@ -120,21 +122,27 @@ main {
 	font-size: 20px;
 }
 
-#answer-buttons {
-
-	
-
-}
-
-
-#questions {
-	
-}
-
 .correct {
 	background-color: #4dbb7a;
 }
 
 .incorrect {
 	background-color: #f85959;
+}
+
+#timer{
+	background-color: white;
+	color: red;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	border-radius: 5px;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	font-weight: 600;
+	position: absolute;
+	left: 40px;
+	bottom: 23px;
+	
 }
