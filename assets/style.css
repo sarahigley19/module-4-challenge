@@ -20,7 +20,7 @@ main {
 	padding-left: 30px;
 	padding-right: 30px;
 	margin: auto ;
-	height: 650px;
+	height: 800px;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	position: relative;
 }
@@ -51,13 +51,13 @@ main {
 	padding-bottom: 15px;
 	padding-left: 35px;
 	padding-right: 35px;
+	margin-left: 170px;
+	margin-top: 40px;
 	text-decoration: none;
 	list-style: none;
 	font-size: 16px;
-	margin: 20px;
 	cursor: pointer;
 	font-weight: 600;
-	float: right;
 	display: none;
 }
 
@@ -145,4 +145,43 @@ main {
 	left: 40px;
 	bottom: 23px;
 	
+}
+
+.high-score-form button{
+	background-color: #3e4d23;
+		color: white;
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		border: none;
+		border-radius: 5px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 35px;
+		padding-right: 35px;
+		text-decoration: none;
+		list-style: none;
+		font-size: 16px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		margin-right: 20px;
+		margin-left: 10px;
+		cursor: pointer;
+		font-weight: 600;
+	
+	
+}
+
+.high-score-form input {
+	border-radius: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 8px;
+	font-size: 16px;
+
+}
+
+.high-score-form {
+	text-align: center;
+	margin-top: 255px;
+
 }

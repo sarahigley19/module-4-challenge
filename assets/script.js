@@ -1,3 +1,4 @@
+// Quiz Questions
 const question = [
 	{
 		question: " Commenly used data types DO NOT include:",
@@ -47,29 +48,29 @@ const question = [
 
 ];
 
-
-const timerButton = document.getElementById("timer");
-const questionElement = document.getElementById("questions");
-const answerButtons = document.getElementById("answer-buttons");
-const nextButton = document.getElementById("next-btn");
-const titleElement = document.getElementById("intro");
-const startButton = document.getElementById("start-quiz-btn");
-
 let currentQuestionIndex = 0;
 let score = 0;
 let timeLeft = 30;
-let timerID = setInterval(countdown, 10000)
+let timerID;
+const highScores = [];
+
+// Title Screen
+const titleElement = document.getElementById("intro");
 
 function showTitleScreen() {
-	// Hide the question element on the title screen
 	nextButton.style.display = "none";
 	questionElement.style.display = "none";
 	answerButtons.style.display = "none";
+	highScoreForm.style.display = "none";
 
 	titleElement.innerHTML = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score time by ten seconds!";
+	
 	startButton.style.display = "block";
+	timerButton.innerHTML = "30 SECONDS REMAINING";
 }
 
+// Start Quiz 
+const startButton = document.getElementById("start-quiz-btn");
 
 function startQuiz() {
 	currentQuestionIndex = 0;
@@ -78,32 +79,33 @@ function startQuiz() {
 
 	questionElement.style.display = "block";
 	answerButtons.style.display = "block";
-	// Hide the title screen elements
 	titleElement.innerHTML = "";
 	startButton.style.display = "none";
+	highScoreForm.style.display = "none";
 
-	// Check if it's the title screen
 	if (currentQuestionIndex < question.length) {
-		showQuestion();
-		// Update the interval each time a new question starts
 		timerID = setInterval(countdown, 1000);
+		showQuestion();
 	}
 }
 
+// Timer Starts Ticking
+const timerButton = document.getElementById("timer");
+
 function countdown() {
-	if (timeLeft === -1) {
+	if (timeLeft === 0) {
 		clearInterval(timerID);
-		// Perform actions when time reaches -1
-		// For example, showScore();
+		showScore();
 	} else {
-		console.log(timeLeft + ' SECONDS REMAINING');
-		// Update the displayed time on your HTML element
-		timerButton.innerHTML = timeLeft + ' SECONDS REMAINING';
+		console.log(timeLeft + " SECONDS REMAINING");
+		timerButton.innerHTML = timeLeft + " SECONDS REMAINING";
 		timeLeft--;
 	}
 }
-
 startButton.addEventListener("click", startQuiz);
+
+// Show Question Buttons 
+const questionElement = document.getElementById("questions");
 
 function showQuestion() {
 	resetState();
@@ -111,7 +113,7 @@ function showQuestion() {
 	let questionNo = currentQuestionIndex + 1;
 	questionElement.innerHTML = questionNo + "." + currentQuestion.question;
 
-	currentQuestion.answers.forEach(answer => {
+	currentQuestion.answers.forEach((answer) => {
 		const button = document.createElement("button");
 		button.innerHTML = answer.text;
 		button.classList.add("btn");
@@ -123,12 +125,16 @@ function showQuestion() {
 	});
 }
 
+// Repeat for Each Question
 function resetState() {
 	nextButton.style.display = "none";
 	while (answerButtons.firstChild) {
 		answerButtons.removeChild(answerButtons.firstChild);
 	}
 }
+
+// Select your answer. Wrong answer button turns red, right answer button turns green. Wrong answer clock is decrement 10 seconds.
+const answerButtons = document.getElementById("answer-buttons");
 
 function selectAnswer(e) {
 	const selectedBtn = e.target;
@@ -140,36 +146,45 @@ function selectAnswer(e) {
 	} else {
 		selectedBtn.classList.add("incorrect");
 		// Decrement time for a wrong answer
-		timeLeft -= 10; // You can adjust the penalty time as needed
+		timeLeft -= 10; 
 		if (timeLeft < 0) {
-			timeLeft = 0; // Ensure timeLeft is not negative
+			timeLeft = 0;
 		}
-		// Update the displayed time on your HTML element
-		timerButton.innerHTML = timeLeft + ' seconds remaining';
 	}
 
-	Array.from(answerButtons.children).forEach(button => {
+	Array.from(answerButtons.children).forEach((button) => {
 		if (button.dataset.correct === "true") {
 			button.classList.add("correct");
 		}
 		button.disabled = true;
 	});
-	nextButton.style.display = "block";
+
+	if (currentQuestionIndex < question.length - 1) {
+		nextButton.style.display = "block";
+	} else {
+		showScore();
+	}
 }
 
-function showScore() {
-	resetState();
-	questionElement.innerHTML = `You scored ${score} out of ${question.length}!`;
-	nextButton.innerHTML = "Play Again";
-	nextButton.style.display = "block";
-}
+//Functionailty of the Next Button. Only shows after an aswer has been selected.
+const nextButton = document.getElementById("next-btn");
 
 function handleNextButton() {
 	currentQuestionIndex++;
 	if (currentQuestionIndex < question.length) {
 		showQuestion();
 	} else {
-		showScore();
+		currentQuestionIndex = 0;
+		score = 0;
+		timeLeft = 30;
+		clearInterval(timerID);
+		resetState(); 
+		timerButton.style.display = "block";
+		timerButton.innerHTML = "30 SECONDS REMAINING"; 
+
+		document.body.classList.remove("quiz-ended");
+
+		showTitleScreen();
 	}
 }
 
@@ -181,5 +196,59 @@ nextButton.addEventListener("click", () => {
 	}
 });
 
-// Only call showTitleScreen() at the beginning
+
+// Shows score at the end and shows high scores after inputting intials. 
+const submitButton = document.getElementById("submit-btn");
+
+function showScore() {
+	resetState();
+	questionElement.innerHTML = `You scored ${score} out of ${question.length}!`;
+
+	highScoreForm.innerHTML = "<h3>To log your high score, enter your initials:</h3>";
+
+	const input = document.createElement("input");
+	input.setAttribute("type", "text");
+	input.setAttribute("id", "initials-id");
+	input.setAttribute("placeholder", "Your Initials");
+	highScoreForm.appendChild(input);
+
+	submitButton.setAttribute("type", "button");
+	submitButton.textContent = "Submit";
+	submitButton.addEventListener("click", function (event) {
+		event.preventDefault();
+		storeHighScore();
+	});
+
+	highScoreForm.appendChild(submitButton);
+
+	highScores.forEach((user) => {
+		highScoreForm.insertAdjacentHTML('beforeend', `<p>${user.initials} = ${user.score}</p>`);
+	});
+
+	nextButton.innerHTML = "Play Again";
+	nextButton.style.display = "block";
+	timerButton.style.display = "none";
+	highScoreForm.style.display = "block";
+}
+
+
+// Stores high scores in local storage after you hit "play again".
+const highScoreForm = document.querySelector(".high-score-form");
+const initialsInput = document.getElementById("initials-id");
+
+function storeHighScore() {
+	const initialsInput = document.getElementById("initials-id");
+	const userInitials = initialsInput.value;
+	const userScore = score;
+	highScores.push({ initials: userInitials, score: userScore });
+
+	highScoreForm.innerHTML = "<h2>High Scores:</h2>";
+
+	highScores.forEach((user) => {
+		highScoreForm.insertAdjacentHTML('beforeend', `<p>${user.initials} = ${user.score}</p>`);
+	});
+
+	initialsInput.value = "";
+}
+
 showTitleScreen();
